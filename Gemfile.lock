@@ -226,6 +226,9 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
     uniform_notifier (1.14.2)
+    valid_email2 (4.0.0)
+      activemodel (>= 3.2)
+      mail (~> 2.5)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -269,6 +272,7 @@ DEPENDENCIES
   spring
   turbolinks (~> 5)
   tzinfo-data
+  valid_email2
   web-console (>= 4.1.0)
   webpacker (~> 5.0)
 

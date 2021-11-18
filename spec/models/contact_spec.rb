@@ -80,10 +80,13 @@ RSpec.describe Contact, type: :model do
       let(:number) { cc_factory.random(:visa) }
       let(:attributes) { attributes_for(:contact, credit_card: number).except(:id) }
 
-      subject { described_class.create(attributes) }
+      subject do
+        described_class.create(attributes)
+      end
 
       it { is_expected.to be_valid }
       it { expect(subject.franchise).to eq("visa") }
+      it { expect(subject.last_four).to eq(number[-4...number.size]) }
       it { expect(subject.credit_card).not_to eq(number) }
     end
   end

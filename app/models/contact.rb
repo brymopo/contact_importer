@@ -18,23 +18,38 @@ class Contact < ApplicationRecord
             presence: true,
             credit_card_number: {
               brands: %i[amex diners discover jcb mastercard visa],
-              message: "Not a CC number or not an approved franchise"
+              message: "Not a CC number or not an approved franchise",
+              if: :run_validation?
             }
-  before_create :set_cc_info
+  after_validation :set_cc_info
+  before_save :encrypt_credit_card
 
   private
 
-  def set_franchise
-    detector = CreditCardValidations::Detector.new(credit_card)
-    self.franchise = detector.brand
-  end
-
-  def encrypt_credit_card
-    credit_card
+  def run_validation?
+    credit_card_key.nil?
   end
 
   def set_cc_info
-    set_franchise
-    encrypt_credit_card
+    return unless new_record?
+
+    detector = CreditCardValidations::Detector.new(credit_card)
+    self.franchise = detector.brand
+    self.last_four = detector.number[-4...detector.number.size]
+  end
+
+  def encrypt_credit_card
+    pkey_path = Rails.root.join("config", "public.pem")
+    public_key = OpenSSL::PKey::RSA.new(File.read(pkey_path))
+    cipher = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+    cipher.encrypt
+    cipher.key = random_key = cipher.random_key
+    cipher.iv = random_iv = cipher.random_iv
+
+    self.credit_card = cipher.update(self.credit_card)
+    self.credit_card << cipher.final
+
+    self.credit_card_key = public_key.public_encrypt(random_key)
+    self.credit_card_iv = public_key.public_encrypt(random_iv) 
   end
 end

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_194128) do
+ActiveRecord::Schema.define(version: 2021_11_18_173107) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -49,10 +50,13 @@ ActiveRecord::Schema.define(version: 2021_11_17_194128) do
     t.string "address", null: false
     t.string "franchise", null: false
     t.string "email", null: false
-    t.string "credit_card", null: false
     t.string "date_of_birth", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.binary "credit_card"
+    t.binary "credit_card_key"
+    t.binary "credit_card_iv"
+    t.string "last_four"
   end
 
   create_table "csv_files", force: :cascade do |t|

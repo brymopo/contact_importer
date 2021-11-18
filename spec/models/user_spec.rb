@@ -8,5 +8,6 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it { is_expected.to have_many(:csv_files) }
+    it { is_expected.to have_many(:contacts) }
   end
 end

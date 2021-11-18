@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
+  describe "associations" do
+    it { is_expected.to belong_to(:user) }
+  end
+
   describe "validations" do
     context "presence" do
       attributes = %i[name date_of_birth phone address email credit_card]
@@ -77,17 +81,45 @@ RSpec.describe Contact, type: :model do
     let(:cc_factory) { CreditCardValidations::Factory }
 
     context "sets franchise on create" do
+      let(:user) { create(:user) }
       let(:number) { cc_factory.random(:visa) }
-      let(:attributes) { attributes_for(:contact, credit_card: number).except(:id) }
+      let(:attributes) {
+        attributes_for(:contact, credit_card: number).merge(user_id: user.id)
+      }
 
-      subject do
-        described_class.create(attributes)
-      end
+      subject { described_class.create(attributes) }
 
       it { is_expected.to be_valid }
       it { expect(subject.franchise).to eq("visa") }
       it { expect(subject.last_four).to eq(number[-4...number.size]) }
       it { expect(subject.credit_card).not_to eq(number) }
+    end
+
+    context "when two contacts have the same email, different users" do
+      let(:user1) { create(:user) }
+      let(:user2) { create(:user) }
+      let(:contact1) { create(:contact, email: "same@example.com", user: user1) }
+      let(:contact2) { create(:contact, email: "same@example.com", user: user2) }
+
+      it { expect(contact1).to be_valid }
+      it { expect(contact2).to be_valid }
+      it { expect(contact1.email).to eq(contact2.email) }
+      it { expect(user1.id).not_to eq(user2.id) }
+      it { expect(contact1.user.id).to eq(user1.id) }
+      it { expect(contact2.user.id).to eq(user2.id) }
+    end
+
+    context "when two contacts have the same email, same user" do
+      let(:user) { create(:user) }
+      let(:contact1) { create(:contact, email: "same@example.com", user: user) }
+      let(:attributes) { attributes_for(:contact, email: contact1.email).merge(user_id: user.id) }
+
+      subject { described_class.create(attributes) }
+
+      it { expect(contact1).to be_valid }
+      it { is_expected.not_to be_valid }
+      it { is_expected.not_to be_persisted }
+      it { expect(subject.email).to eq(contact1.email) }
     end
   end
 end

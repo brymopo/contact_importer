@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+  belongs_to :user
   validates_presence_of :date_of_birth
   validates :name,
             presence: true,
@@ -7,7 +8,10 @@ class Contact < ApplicationRecord
               message: "Name must be alphanumeric ('-' is allowed)"
             }
   validates :address, presence: true
-  validates :email, presence: true, "valid_email_2/email": true
+  validates :email,
+            presence: true,
+            "valid_email_2/email": true,
+            uniqueness: { scope: [:user_id] }
   validates :phone,
             presence: true,
             format: {

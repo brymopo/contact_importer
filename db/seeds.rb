@@ -9,8 +9,10 @@
 bot = FactoryBot
 user = User.create(email: "user@example.com", password: "abc123")
 
-100.times do
-  bot.create(:contact, user: user, name: Faker::Name.name)
+%w[pedro-perez mario-barajas pedro-antonio maria-carvajal susana-lopez
+margarita-suarez andres-fernandez juana-loza
+].each do |name|
+  bot.create(:contact, user: user, name: name)
 end
 
 25.times do

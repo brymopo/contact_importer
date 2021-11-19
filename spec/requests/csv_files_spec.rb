@@ -32,6 +32,11 @@ RSpec.describe CsvFilesController, type: :request do
       it { is_expected.to render_template(:index) }
       it { expect(assigns(:csv_files)).to match_array(files.first(20)) }
       it { expect(assigns(:csv_files)).not_to include(files.last(5)) }
+      it "results are the right kind" do
+        assigns(:csv_files).each do |result|
+          expect(result).to be_kind_of(CsvFile)
+        end
+      end
     end
   end
 end

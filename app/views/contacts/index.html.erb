@@ -1,0 +1,47 @@
+<h1>CONTACTS</h1>
+
+<table class="table">
+  </thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Credit Card</th>
+      <th scope="col">Franchise</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <th scope="col">
+          <%= contact.id %>
+        <th scope="col">
+          <%= contact.name %>
+        </th>
+        <th scope="col">
+          <%= contact.phone %>
+        </th>
+        <th scope="col">
+          <%= contact.address %>
+        </th>
+        <th scope="col">
+          <%= contact.last_four %>
+        </th>
+        <th scope="col">
+          <%= contact.franchise.capitalize %>
+        </th>
+        <th scope="col">
+          <%= contact.show_dob %>
+        </th>
+        <th scope="col">
+          <%= contact.email %>
+        </th>
+      <tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @contacts %>

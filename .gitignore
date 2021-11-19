@@ -93,3 +93,5 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 
 **/.DS_Store
+/config/private.pem
+dump.rdb

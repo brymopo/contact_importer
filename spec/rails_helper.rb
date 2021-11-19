@@ -60,6 +60,16 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:

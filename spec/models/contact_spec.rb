@@ -75,6 +75,24 @@ RSpec.describe Contact, type: :model do
         it { is_expected.not_to allow_value(cc_factory.random(:switch)).for(:credit_card) }
       end
     end
+
+    context "date_of_birth" do
+      let(:tomorrow) { Date.tomorrow.iso8601[0...10] }
+
+      it { is_expected.to allow_value("1987-09-12").for(:date_of_birth) }
+      it { is_expected.to allow_value("1900-01-31").for(:date_of_birth) }
+      it { is_expected.to allow_value("1969-04-28").for(:date_of_birth) }
+      it { is_expected.to allow_value("2005-10-09").for(:date_of_birth) }
+      it { is_expected.to allow_value("2017-12-31").for(:date_of_birth) }
+      it { is_expected.not_to allow_value(tomorrow).for(:date_of_birth) }
+      it { is_expected.not_to allow_value("2020-02-31").for(:date_of_birth) }
+      it { is_expected.not_to allow_value("2020-19-31").for(:date_of_birth) }
+      it { is_expected.not_to allow_value("1899-12-31").for(:date_of_birth) }
+      it { is_expected.not_to allow_value(1234567890).for(:date_of_birth) }
+      it { is_expected.not_to allow_value("alphanumeric 0123456789").for(:date_of_birth) }
+      it { is_expected.not_to allow_value("with%_sp$c!@l%_char-acters").for(:date_of_birth) }
+      it { is_expected.not_to allow_value("1987-09-12T00:00:00+00:00").for(:date_of_birth) }
+    end
   end
 
   describe ".create" do
@@ -83,9 +101,9 @@ RSpec.describe Contact, type: :model do
     context "sets franchise on create" do
       let(:user) { create(:user) }
       let(:number) { cc_factory.random(:visa) }
-      let(:attributes) {
+      let(:attributes) do
         attributes_for(:contact, credit_card: number).merge(user_id: user.id)
-      }
+      end
 
       subject { described_class.create(attributes) }
 

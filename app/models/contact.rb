@@ -57,6 +57,6 @@ class Contact < ApplicationRecord
     self.credit_card << cipher.final
 
     self.credit_card_key = public_key.public_encrypt(random_key)
-    self.credit_card_iv = public_key.public_encrypt(random_iv) 
+    self.credit_card_iv = public_key.public_encrypt(random_iv)
   end
 end

@@ -1,6 +1,9 @@
 class Contact < ApplicationRecord
   belongs_to :user
-  validates_presence_of :date_of_birth
+  validates :date_of_birth,
+            presence: true,
+            format: { with: /\A(?:19|20)\d{2}(?:-\d{2}){2}\z/ },
+            date: true
   validates :name,
             presence: true,
             format: {

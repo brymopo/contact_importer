@@ -31,6 +31,14 @@ class Contact < ApplicationRecord
   after_validation :set_cc_info
   before_save :encrypt_credit_card
 
+  def show_dob
+    date = DateTime.iso8601(date_of_birth)
+    year = date.year
+    month = Date::MONTHNAMES[date.month]
+    day = date.day
+    "#{year} #{month} #{day}"
+  end
+
   private
 
   def run_validation?

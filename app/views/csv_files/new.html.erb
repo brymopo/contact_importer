@@ -1,45 +1,47 @@
-<h1> Import a Csv file </h1>
+<h1> Import a CSV File </h1>
 
 <%= form_with model: @csv_file do |form| %>
-  <div>
-    <%= form.label :file %><br>
-    <%= form.file_field :file %>
-  </div>
-
-  <div>
-    <p> Add your headers (if they equal the name on your file, leave blank) </p>
-   <div>
-    <%= form.label :name %>
+  <div class="p-5 border border-primary rounded d-flex justify-content-center mb-3">
+  <div class="mb-3">
+    <div class="mb-3">
+      <%= form.label :file, class: "form-label" %><br>
+      <%= form.file_field :file %>
+    </div>
+    <p class="small">
+      Add your headers (if they equal the name on your file, leave blank)
+    </small>
+   <div class="mb-3">
+    <%= form.label :name %><br>
     <%= form.text_field :name %>
    </div>
 
-   <div>
-    <%= form.label :address %>
+   <div class="mb-3">
+    <%= form.label :address %><br>
     <%= form.text_field :address %>
    </div>
 
-   <div>
-    <%= form.label :phone %>
+   <div class="mb-3">
+    <%= form.label :phone %><br>
     <%= form.text_field :phone %>
-   </div>
+   </div class="mb-3">
 
-    <div>
-      <%= form.label :email %>
+    <div class="mb-3">
+      <%= form.label :email %><br>
       <%= form.text_field :email %>
     </div>
 
-    <div>
-      <%= form.label :date_of_birth %>
+    <div class="mb-3">
+      <%= form.label :date_of_birth %><br>
       <%= form.text_field :date_of_birth %>
     </div>
 
-    <div>
-      <%= form.label :credit_card %>
+    <div class="mb-3">
+      <%= form.label :credit_card %><br>
       <%= form.text_field :credit_card %>
+    </div class="mb-3">
+    <div>
+      <%= form.submit %>
     </div>
   </div>
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

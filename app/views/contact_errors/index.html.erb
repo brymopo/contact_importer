@@ -1,1 +1,32 @@
-<h1> CONTACT ERRORS GO HERE </h1>
+<h1> Failed Contacts </h1>
+
+<table class="table">
+  </thead>
+    <tr>
+      <th scope="col">Input date</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Credit Card</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @failed_contacts.each do |contact| %>
+      <tr>        
+        <th scope="col">
+          <%= contact.contact_identifier %>
+        </th>
+        <%= render "shared/contact_error", resource: contact.name %>
+        <%= render "shared/contact_error", resource: contact.phone %>
+        <%= render "shared/contact_error", resource: contact.address %>
+        <%= render "shared/contact_error", resource: contact.credit_card %>
+        <%= render "shared/contact_error", resource: contact.date_of_birth %>
+        <%= render "shared/contact_error", resource: contact.email %>
+      <tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @failed_contacts %>

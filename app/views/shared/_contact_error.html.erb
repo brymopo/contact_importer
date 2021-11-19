@@ -1,0 +1,11 @@
+<% if resource.empty? %>
+  <th scope="col">
+    N/A
+  </th>
+<% else %>
+  <th scope="col">
+    <% resource.each do |error| %>
+     <p> <%= error %> </p>
+    <% end %>
+  </th>
+<% end %>

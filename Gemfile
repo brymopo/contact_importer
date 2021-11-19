@@ -60,3 +60,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem "valid_email2"
 gem 'credit_card_validations'
+gem 'aasm'

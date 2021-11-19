@@ -1,24 +1,30 @@
-# README
+# Contacts Importer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Ruby on rails application to import CSV files, parse its contents and add contacts.
+Database: Postgresql
+Background jobs proccesing via Sidekiq
+CSV file import and parsing features
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+1. Clone the repository
+  `git clone git@github.com:brymopo/contact_importer.git`
 
-* System dependencies
+2. Install all required dependencies
+   `bundle install`
 
-* Configuration
+3. (Optional) Customize db/seeds.rb file
 
-* Database creation
+4. Set up the database
+   `rails db:setup`
 
-* Database initialization
+5. Start the server in development
+   `rails s`
 
-* How to run the test suite
+## A note on Encryption
 
-* Services (job queues, cache servers, search engines, etc.)
+This application implements credit card encryption via Public Key and decryption with a private key.
 
-* Deployment instructions
+There is already a public key provided in this repository (The private key is excluded for security reasons)
 
-* ...
+If you wish to generate an RSA key pair of your one, feel free to do so; however, make sure to include the private key in the config folder as "public.pem".

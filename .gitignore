@@ -94,3 +94,4 @@ build-iPhoneSimulator/
 
 **/.DS_Store
 /config/private.pem
+dump.rdb

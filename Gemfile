@@ -63,3 +63,4 @@ gem "valid_email2"
 gem 'credit_card_validations'
 gem 'aasm'
 gem "sidekiq"
+gem 'will_paginate', '~> 3.3'

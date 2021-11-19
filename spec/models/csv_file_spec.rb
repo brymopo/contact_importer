@@ -71,4 +71,25 @@ RSpec.describe CsvFile, type: :model do
       it { expect(subject.errors[:file]).to include("cannot be more than 2 MB") }
     end
   end
+
+  describe "transitions" do
+    let(:csv_file) { create(:csv_file) }
+
+    context "default state" do
+      it { expect(csv_file).to have_state(:on_hold) }
+      it { expect(csv_file).to allow_transition_to(:processing) }
+    end
+
+    context "process event" do
+      it { expect(csv_file).to transition_from(:on_hold).to(:processing).on_event(:process) } 
+    end
+
+    context "mark_finished event" do
+      it { expect(csv_file).to transition_from(:processing).to(:finished).on_event(:mark_finished) }
+    end
+
+    context "mark_failed event" do
+      it { expect(csv_file).to transition_from(:processing).to(:failed).on_event(:mark_failed) }
+    end
+  end
 end

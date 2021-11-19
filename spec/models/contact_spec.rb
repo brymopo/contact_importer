@@ -84,6 +84,10 @@ RSpec.describe Contact, type: :model do
       it { is_expected.to allow_value("1969-04-28").for(:date_of_birth) }
       it { is_expected.to allow_value("2005-10-09").for(:date_of_birth) }
       it { is_expected.to allow_value("2017-12-31").for(:date_of_birth) }
+      it { is_expected.to allow_value("1993-09-13").for(:date_of_birth) }
+      it { is_expected.to allow_value("1970-05-31").for(:date_of_birth) }
+      it { is_expected.to allow_value("1995-08-27").for(:date_of_birth) }
+      it { is_expected.to allow_value("1982-11-10").for(:date_of_birth) }      
       it { is_expected.not_to allow_value(tomorrow).for(:date_of_birth) }
       it { is_expected.not_to allow_value("2020-02-31").for(:date_of_birth) }
       it { is_expected.not_to allow_value("2020-19-31").for(:date_of_birth) }

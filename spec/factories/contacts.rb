@@ -5,7 +5,7 @@ FactoryBot.define do
     address { Faker::Address.street_address }
     email { Faker::Internet.email }
     credit_card { CreditCardValidations::Factory.random(:visa) }
-    date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
+    date_of_birth { "1982-11-10" }
     user
   end
 end

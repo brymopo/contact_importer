@@ -65,3 +65,4 @@ gem 'credit_card_validations'
 gem 'aasm'
 gem "sidekiq"
 gem 'will_paginate', '~> 3.3'
+gem "aws-sdk-s3", require: false

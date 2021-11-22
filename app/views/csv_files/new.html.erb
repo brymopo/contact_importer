@@ -6,6 +6,9 @@
     <div class="mb-3">
       <%= form.label :file, class: "form-label" %><br>
       <%= form.file_field :file %>
+      <% @csv_file.errors.full_messages_for(:file).each do |message| %>
+        <p class="text-danger"> <%= message %> </p>
+      <% end %>
     </div>
     <p class="small">
       Add your headers (if they equal the name on your file, leave blank)

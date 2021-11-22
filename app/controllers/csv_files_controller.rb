@@ -11,8 +11,8 @@ class CsvFilesController < ApplicationController
   end
 
   def create
-    csv_file = CsvFile.create(create_params)
-    if csv_file.valid?
+    @csv_file = CsvFile.create(create_params)
+    if @csv_file.valid?
       ParserJob.perform_later({ file_id: csv_file.id, headers: file_headers })
       flash[:notice] = "File imported correctly. Processing will start soon"
       redirect_to csv_files_path
